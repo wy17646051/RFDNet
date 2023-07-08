@@ -1,0 +1,25 @@
+NAME: ???
+SEED: 123456789
+CUDNN_DETERMINISTIC: True
+
+WANDB: 
+    project: RFDNet
+    run_name: ${NAME}
+    entity: wy17646051
+
+DIST:
+    backend: nccl
+    url: env://
+    print_rank: Null
+
+hydra:
+    job:
+        chdir: False
+    callbacks:
+        disable_multirun:
+            _target_: utils.hydra.callbacks.DisableMultiRunCallback
+        update_wandb_output_dir:
+            _target_: utils.hydra.callbacks.UpdateWandbOutputDirCallback
+        pickle_resume_config:
+            _target_: utils.hydra.callbacks.PickleResumeConfigCallback
+
