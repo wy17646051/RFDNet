@@ -29,7 +29,27 @@ pip install -v -e .
 
 ### Start Training
 
-Execute the following command to start training with 4 device
+1. Prepare the nuScenes data to the `data/nuscenes` directory, the directory structure should be as follows:
+
+```
+├── configs
+├── data
+│   └── nuscenes
+├── docs
+├── mmdet3d
+├── requirements
+├── tools
+├── utils
+│   ......
+```
+
+2. Data preprocessing
+
+```shell
+python tools/preprocess/nuscenes_preprocess.py --dataroot ./data/nuscenes --version v1.0-trainval --max-sweeps 10 --with_lidarseg
+```
+
+3. Execute the following command to start training with 4 device
 
 ```shell
 bash train.sh "0,1,2,3" "rfdnet_naive+dgfe+sbr+sagts" 4

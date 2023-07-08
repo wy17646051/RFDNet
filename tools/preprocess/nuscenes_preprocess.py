@@ -674,27 +674,27 @@ def data_preprocess(
         with_lidarseg=with_lidarseg, with_panoptic=with_panoptic
     )
 
-    # if version == 'v1.0-test':
-    # #     info_test_path = osp.join(dataroot, 'nuscenes_infos_test.pkl')
-    # #     export_2d_annotation(dataroot, info_test_path, version=version)
-    #     return
+    if version == 'v1.0-test':
+        info_test_path = osp.join(dataroot, 'nuscenes_infos_test.pkl')
+        export_2d_annotation(dataroot, info_test_path, version=version)
+        return
 
-    # prefix = 'mini-' if 'mini' in version else ''
-    # info_train_path = osp.join(dataroot, f'nuscenes_infos_{prefix}train.pkl')
-    # # info_val_path = osp.join(dataroot, f'nuscenes_infos_{prefix}val.pkl')
-    # # export_2d_annotation(dataroot, info_train_path, version=version)
-    # # export_2d_annotation(dataroot, info_val_path, version=version)
+    prefix = 'mini-' if 'mini' in version else ''
+    info_train_path = osp.join(dataroot, f'nuscenes_infos_{prefix}train.pkl')
+    info_val_path = osp.join(dataroot, f'nuscenes_infos_{prefix}val.pkl')
+    # export_2d_annotation(dataroot, info_train_path, version=version)
+    # export_2d_annotation(dataroot, info_val_path, version=version)
     
-    # postfix = version.split('-')[1]
-    # instance_dir_path = f'nuscenes_instance_{postfix}'
-    # dbinfo_path = f'nuscenes_dbinfos_{postfix}.pkl'
-    # create_groundtruth_database(
-    #     'NuScenesDataset', 
-    #     dataroot, 
-    #     instance_dir_path,
-    #     dbinfo_path, 
-    #     info_train_path
-    # )
+    postfix = version.split('-')[1]
+    instance_dir_path = f'nuscenes_instance_{postfix}'
+    dbinfo_path = f'nuscenes_dbinfos_{postfix}.pkl'
+    create_groundtruth_database(
+        'NuScenesDataset', 
+        dataroot, 
+        instance_dir_path,
+        dbinfo_path, 
+        info_train_path
+    )
 
 def data_preprocess_submission(
     dataroot, version, max_sweeps=10, with_lidarseg=False, with_panoptic=False
@@ -803,9 +803,3 @@ if __name__ == '__main__':
             args.dataroot, args.version, args.max_sweeps, 
             with_lidarseg=args.with_lidarseg, with_panoptic=args.with_panoptic
         )
-
-# python tools/preprocess/nuscenes_preprocess.py --dataroot ./data/nuscenes --version v1.0-mini --max-sweeps 10 --with_lidarseg --with_panoptic
-# python tools/preprocess/nuscenes_preprocess.py --dataroot ./data/nuscenes --version v1.0-trainval --max-sweeps 10 --with_lidarseg
-# python tools/preprocess/nuscenes_preprocess.py --dataroot ./data/nuscenes --version v1.0-test --max-sweeps 10 --with_lidarseg
-
-# python tools/preprocess/nuscenes_preprocess.py --dataroot ./data/nuscenes --version v1.0-trainval --max-sweeps 10 --with_lidarseg --submission
